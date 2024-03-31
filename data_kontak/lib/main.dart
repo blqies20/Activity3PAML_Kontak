@@ -1,4 +1,4 @@
-import 'package:data_kontak/kontak_form.dart';
+import 'package:data_kontak/widget/kontak_form.dart';
 import 'package:flutter/material.dart';
 
 void main() {

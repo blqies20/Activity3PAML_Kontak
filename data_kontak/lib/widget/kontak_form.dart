@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:data_kontak/controller/kontak_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:data_kontak/model/kontak.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:data_kontak/main.dart';
 
 class FormKontak extends StatefulWidget {
   const FormKontak({super.key});
@@ -79,7 +79,7 @@ class _FormKontakState extends State<FormKontak> {
               ? Text("Tidak ada gambar yang dipilih")
               : Image.file(_image!),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: getImage,
                 child: Text("Pilih Gambar"),
               ),
               Container(
@@ -91,7 +91,7 @@ class _FormKontakState extends State<FormKontak> {
                         nama: _namaController.text,
                         email: _emailController.text,
                         alamat: _alamatController.text,
-                        telepon: _noTeleponController.text
+                        telepon: _noTeleponController.text,
                         foto: _image!.path
                       ),
                       _image,

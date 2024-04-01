@@ -1,5 +1,6 @@
 import 'package:data_kontak/controller/kontak_controller.dart';
 import 'package:data_kontak/model/kontak.dart';
+import 'package:data_kontak/widget/kontak_form.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -37,19 +38,27 @@ class _HomeViewState extends State<HomeView> {
               );
             } else {
               return ListView.builder(
-                  itemCount: snapshot.data?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    Kontak kontak = snapshot.data![index];
-                    return ListTile(
-                      title: Text(kontak.nama),
-                      subtitle: Text(kontak.email),
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(kontak.foto),
-                      ),
-                    );
-                  });
+                itemCount: snapshot.data?.length ?? 0,
+                itemBuilder: (context, index) {
+                  Kontak kontak = snapshot.data![index];
+                  return ListTile(
+                    title: Text(kontak.nama),
+                    subtitle: Text(kontak.email),
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(kontak.foto),
+                    ),
+                  );
+                },
+              );
             }
           }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => FormKontak()));
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

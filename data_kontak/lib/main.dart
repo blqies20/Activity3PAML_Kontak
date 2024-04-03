@@ -1,5 +1,5 @@
 import 'package:data_kontak/screen/homeview.dart';
-import 'package:data_kontak/widget/kontak_form.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,13 +11,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomeView(),
+      debugShowCheckedModeBanner: false,
+      home: HomeView(),
     );
   }
 }

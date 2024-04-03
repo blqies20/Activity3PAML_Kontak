@@ -1,6 +1,6 @@
 import 'package:data_kontak/controller/kontak_controller.dart';
 import 'package:data_kontak/model/kontak.dart';
-import 'package:data_kontak/widget/kontak_form.dart';
+import 'package:data_kontak/screen/register_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -13,11 +13,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final KontakController _controller = KontakController();
 
-  @override
-  void initState() {
-    super.initState();
-    _controller.getPeople();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +51,7 @@ class _HomeViewState extends State<HomeView> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => FormKontak()));
+              context, MaterialPageRoute(builder: (context) => RegisterView()));
         },
         child: Icon(Icons.add),
       ),

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:data_kontak/controller/kontak_controller.dart';
-import 'package:data_kontak/screen/homeview.dart';
+import 'package:data_kontak/screen/map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:data_kontak/model/kontak.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,11 +17,11 @@ class _FormKontakState extends State<FormKontak> {
   final _formKey = GlobalKey<FormState>();
   final _namaController = TextEditingController();
   final _emailController = TextEditingController();
-  final _alamatController = TextEditingController();
   final _noTeleponController = TextEditingController();
 
   File? _image;
   final _imagePicker = ImagePicker();
+  String? _alamat;
 
   Future<void> getImage() async {
     final XFile? pickedFile =
@@ -30,8 +30,6 @@ class _FormKontakState extends State<FormKontak> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
-      } else {
-        print("No image selected");
       }
     });
   }
@@ -60,11 +58,53 @@ class _FormKontakState extends State<FormKontak> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.all(10),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                    labelText: "Alamat", hintText: "Masukkan Alamat"),
-                controller: _alamatController,
+              width: double.infinity,
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Alamat"),
+                  _alamat == null
+                      ? SizedBox(
+                          width: double.infinity,
+                          child: Text('Alamat Kosong'),
+                        )
+                      : Text('$_alamat'),
+                  _alamat == null
+                      ? TextButton(
+                          onPressed: () async {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MapScreen(
+                                    onLocationSeleced: (selectedAddress) {
+                                  setState(() {
+                                    _alamat = selectedAddress;
+                                  });
+                                }),
+                              ),
+                            );
+                          },
+                          child: Text('Pilih Alamat'),
+                        )
+                      : TextButton(
+                          onPressed: () async {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MapScreen(
+                                    onLocationSeleced: (selectedAddress) {
+                                  setState(() {
+                                    _alamat = selectedAddress;
+                                  });
+                                }),
+                              ),
+                            );
+                            setState(() {});
+                          },
+                          child: Text('Ubah Alamat'),
+                        )
+                ],
               ),
             ),
             Container(
@@ -92,7 +132,7 @@ class _FormKontakState extends State<FormKontak> {
                       Kontak(
                           nama: _namaController.text,
                           email: _emailController.text,
-                          alamat: _alamatController.text,
+                          alamat: _alamat ?? '',
                           telepon: _noTeleponController.text,
                           foto: _image!.path),
                       _image,
@@ -104,10 +144,6 @@ class _FormKontakState extends State<FormKontak> {
                         ),
                       ),
                     );
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeView()),
-                        (route) => false);
                   }
                 },
                 child: const Text("Submit"),
